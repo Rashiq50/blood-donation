@@ -28,7 +28,7 @@ class PublicController extends Controller
             return $query;
         })
         ->when(!empty($area), function ($query) use ($area) {
-            return $query->where(DB::raw('lower(area)'), 'like', '%' . strtolower($area) . '%');
+            return $query->where(DB::raw('lower(address)'), 'like', '%' . strtolower($area) . '%');
         }, function ($query) {
             return $query;
         })->paginate(10);
