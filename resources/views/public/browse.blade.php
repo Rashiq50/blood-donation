@@ -12,7 +12,7 @@
                     <input id="area" placeholder="Area" value="{{ $area }}" name="area" type="text"
                         class="form-control mx-2" />
 
-                    <select name="group" value="{{ $group }}" onchange="postForm()" id="group"
+                    <select name="group" value="{{ strtolower($group) }}" onchange="postForm()" id="group"
                         name="blood_group" class="form-control @error('blood_group') is-invalid @enderror mx-1">
                         <option value="none"> Select blood group </option>
                         <option value="a+"> A+ (A positive) </option>

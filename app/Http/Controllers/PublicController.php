@@ -23,7 +23,7 @@ class PublicController extends Controller
             return $query;
         })
         ->when(!empty($group) && $group != 'none', function ($query) use ($group) {
-            return $query->where('lower(blood_group)', '=', $group);
+            return $query->where(DB::raw('lower(blood_group)'), '=', $group);
         }, function ($query) {
             return $query;
         })
