@@ -14,15 +14,15 @@
 
                     <select name="group" onchange="postForm()" id="group"
                         name="blood_group" class="form-control @error('blood_group') is-invalid @enderror mx-1">
-                        <option {{strtolower($group) == 'none' ? selected : '' }} value="none"> Select blood group </option>
-                        <option {{strtolower($group) == 'a+' ? selected : '' }} value="a+"> A+ (A positive) </option>
-                        <option {{strtolower($group) == 'a-' ? selected : '' }} value="a-"> A- (A negative)</option>
-                        <option {{strtolower($group) == 'b+' ? selected : '' }} value="b+"> B+ (B positive)</option>
-                        <option {{strtolower($group) == 'b-' ? selected : '' }} value="b-"> B- (B negative)</option>
-                        <option {{strtolower($group) == 'o+' ? selected : '' }} value="o+"> O+ (O positive)</option>
-                        <option {{strtolower($group) == 'o-' ? selected : '' }} value="o-"> O- (O negative)</option>
-                        <option {{strtolower($group) == 'ab+' ? selected : '' }} value="ab+"> AB+ (AB positive)</option>
-                        <option {{strtolower($group) == 'ab-' ? selected : '' }} value="ab-"> AB- (AB negative)</option>
+                        <option {{strtolower($group) == 'none' ? 'selected' : '' }} value="none"> Select blood group </option>
+                        <option {{strtolower($group) == 'a+' ? 'selected' : '' }} value="a+"> A+ (A positive) </option>
+                        <option {{strtolower($group) == 'a-' ? 'selected' : '' }} value="a-"> A- (A negative)</option>
+                        <option {{strtolower($group) == 'b+' ? 'selected' : '' }} value="b+"> B+ (B positive)</option>
+                        <option {{strtolower($group) == 'b-' ? 'selected' : '' }} value="b-"> B- (B negative)</option>
+                        <option {{strtolower($group) == 'o+' ? 'selected' : '' }} value="o+"> O+ (O positive)</option>
+                        <option {{strtolower($group) == 'o-' ? 'selected' : '' }} value="o-"> O- (O negative)</option>
+                        <option {{strtolower($group) == 'ab+' ? 'selected' : '' }} value="ab+"> AB+ (AB positive)</option>
+                        <option {{strtolower($group) == 'ab-' ? 'selected' : '' }} value="ab-"> AB- (AB negative)</option>
                     </select>
 
                     <button type="submit" class="btn btn-sm btn-success mx-2">Search</button>
