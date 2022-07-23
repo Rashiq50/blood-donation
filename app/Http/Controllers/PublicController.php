@@ -13,7 +13,7 @@ class PublicController extends Controller
     public function index(Request $request)
     {
         $search = request('search',' ');
-        $group = request('group','');
+        $group = request('group','none');
         $area = request('area','');
 
         $donors = User::where('available', 1)
