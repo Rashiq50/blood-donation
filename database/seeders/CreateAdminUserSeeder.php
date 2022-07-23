@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
 use App\Models\User;
+use Carbon\Exceptions\Exception;
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
 use Illuminate\Support\Facades\Hash;
@@ -17,7 +18,8 @@ class CreateAdminUserSeeder extends Seeder
             'name' => 'Admin User',
             'email' => 'admin@gmail.com',
             'blood_group' => "a+",
-            'phone' => '012345678',
+            'contact' => '012345678',
+            'available' => false,
             'password' => Hash::make('123456'),
         ]);
 
@@ -28,5 +30,17 @@ class CreateAdminUserSeeder extends Seeder
         $role->syncPermissions($permissions);
 
         $user->assignRole([$role->id]);
+
+        $students = json_decode(file_get_contents(storage_path() . "/data.json"), true);
+
+        try{
+            foreach($students as $student)
+            {
+                User::create($student);
+            }
+        }
+        catch(Exception $th){
+            
+        }
     }
 }

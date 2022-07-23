@@ -2,16 +2,18 @@
 
 
 @section('content')
-    <div class="card p-2">
+    <div class="card px-2 container mt-5 pt-5">
         <div class="card-body">
             <form id="info">
                 <div class="d-flex">
-                    <input placeholder="Search" onchange="getDonors()" id="search" type="text" class="form-control"/>
+                    <input placeholder="Search" onchange="postForm()" value="{{ $search }}" name="search" id="search"
+                        type="text" class="form-control" />
 
-                    <input id="area" placeholder="Area" onchange="addArea()" type="text" class="form-control mx-2" />
-                    
-                    <select onchange="getDonors()" id="group" name="blood_group"
-                        class="form-control @error('blood_group') is-invalid @enderror mx-1">
+                    <input id="area" placeholder="Area" value="{{ $area }}" name="area" type="text"
+                        class="form-control mx-2" />
+
+                    <select name="group" value="{{ $group }}" onchange="postForm()" id="group"
+                        name="blood_group" class="form-control @error('blood_group') is-invalid @enderror mx-1">
                         <option value="none"> Select blood group </option>
                         <option value="a+"> A+ (A positive) </option>
                         <option value="a-"> A- (A negative)</option>
@@ -23,7 +25,7 @@
                         <option value="ab-"> AB- (AB negative)</option>
                     </select>
 
-                    <button type="button" onclick="getDonors()" class="btn btn-sm btn-success mx-2">Search</button>
+                    <button type="submit" class="btn btn-sm btn-success mx-2">Search</button>
                 </div>
             </form>
 
@@ -31,18 +33,43 @@
             <div id="locations" class="d-flex flew-wrap">
 
             </div>
-            <div id="donors">
+            <div id="donors2">
+                @foreach ($donors as $donor)
+                    <div class="border rounded p-4 my-2">
+                        <h2>
+                            {{ $donor->name }}
+                        </h2>
+                        <h5>
+                            Contact: {{ $donor->contact }}
+                        </h5>
+                        <h5>
+                            Blood Group: {{ $donor->blood_group }}
+                        </h5>
+                        <h5>
+                            Address: {{ $donor->address }}
+                        </h5>
+                        <h5>
+                            Institution: {{ $donor->institute }}
+                        </h5>
+                    </div>
+                @endforeach
 
+                <div class="d-flex justify-content-center">
+                    {{ $donors->links('pagination::bootstrap-4') }}
+                </div>
             </div>
 
         </div>
     </div>
 
     <script>
+        const postForm = () => {
+            document.getElementById('info').submit();
+        }
         const state = {
             search: "",
-            group:"",
-            areas:[]
+            group: "",
+            areas: []
         }
         const apiData = @json($donors);
         let donors = apiData.data;
@@ -102,19 +129,22 @@
                         ${ element.name }
                     </h2>
                     <h5>
-                        Phone: ${ element.phone }
+                        Contact: ${ element.contact }
                     </h5>
                     <h5>
-                        Blood Group: ${ element.blood_group }
+                        Blood Group: ${ element.blood_group.toUpperCase() }
                     </h5>
                     <h5>
-                        Area: ${ element.area }, ${ element.city }
+                        Address: ${ element.address }
+                    </h5>
+                    <h5>
+                        Institution: ${ element.institute }
                     </h5>
                 `
                 parent.appendChild(donor);
             }
         }
-        addDonors();
+        getDonors();
 
         function getDonors() {
             state.search = document.getElementById('search').value;
@@ -128,7 +158,7 @@
             xhttp.onreadystatechange = function() {
                 if (this.readyState == 4 && this.status == 200) {
                     const response = JSON.parse(xhttp.responseText);
-                    console.log("Success",response );
+                    console.log("Success", response);
                     donors = response.donors.data;
                     addDonors();
                 }

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
     
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\Donor;
 use App\Models\User;
 use Spatie\Permission\Models\Role;
 use Illuminate\Support\Facades\DB;
@@ -40,7 +41,9 @@ class UserController extends Controller
         $user->name = $request->name;
         $user->email = $request->email;
         $user->blood_group = $request->blood_group;
-        $user->phone = $request->phone;
+        $user->contact = $request->contact;
+        $user->address = $request->address;
+        $user->institute = $request->institute;
         $user->password = Hash::make('123456');
         $user->save();
 
@@ -49,6 +52,37 @@ class UserController extends Controller
         return redirect()->route('users.index')
                         ->with('success','User created successfully');
     }
+
+    public function createDonor()
+    {
+        return view('donors.create');
+    }
+
+    public function addDonor(Request $request)
+    {
+        $this->validate($request, [
+            'name' => 'required',
+            'email' => 'required|email|unique:donors,email',
+            'contact' => 'required|string|unique:donors,contact',
+            'blood_group' => 'required|string',
+            'address' => 'required|string',
+            'institute' => 'nullable|string',
+        ]);
+    
+        $donor = new Donor();
+        $donor->name = $request->name;
+        $donor->email = $request->email;
+        $donor->blood_group = $request->blood_group;
+        $donor->contact = $request->contact;
+        $donor->address = $request->address;
+        $donor->institute = $request->institute;
+        $donor->save();
+            
+        return redirect()->route('addDonor')
+                        ->with('success','Donor created successfully');
+    }
+
+
     
     public function show($id)
     {

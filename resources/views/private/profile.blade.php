@@ -2,7 +2,7 @@
 
 
 @section('content')
-    <div class="card">
+    <div class="card mt-5 h-100">
 
         <div class="card-body row justify-content-start">
             <div class="col-md-3 border-right">
@@ -10,7 +10,7 @@
                     <img class="rounded-circle mt-5" width="150px"
                         src="https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg">
                     <span class="font-weight-bold fs-4"> {{ $user->name }} </span>
-                    <span class="text-black-50"> <i class="fas fa-phone"></i> {{ $user->phone }} </span>
+                    <span class="text-black-50"> <i class="fas fa-phone"></i> {{ $user->contact }} </span>
                     <span class="text-black-50"> <i class="fas fa-heart"></i> {{ Str::upper($user->blood_group) }}</span>
                 </div>
             </div>
@@ -24,24 +24,56 @@
 
                     <div class="row mt-3">
                         <div class="col-md-12">
-                            <label class="labels">Name</label>
+                            <strong class="labels">Name</strong>
                             {!! Form::text('name', null, ['placeholder' => 'Name', 'class' => 'form-control']) !!}
                         </div>
-                        <div class="col-md-12">
-                            <label class="labels">Mobile Number</label>
-                            {!! Form::text('phone', null, ['placeholder' => 'Phone', 'class' => 'form-control']) !!}
-                            <div class="col-md-12">
-                                <label class="labels">Email</label>
-                                {!! Form::email('email', null, ['placeholder' => 'Email', 'class' => 'form-control']) !!}
-                            </div>
-
+                        <div class="col-md-12 mt-3">
+                            <strong class="labels">Contact No.</strong>
+                            {!! Form::text('contact', null, ['placeholder' => 'Phone', 'class' => 'form-control']) !!}
                         </div>
-                        <div class="row mt-3">
-                            {{-- <div class="col-md-6">
-                                <label class="labels">Last Donated</label>
-                                {!! Form::date('last_donated', null, ['class' => 'form-control']) !!}
-                            </div> --}}
+                        <div class="col-md-12 mt-3">
+                            <strong class="labels">Email</strong>
+                            {!! Form::email('email', null, ['placeholder' => 'Email', 'class' => 'form-control']) !!}
+                        </div>
+                        <div class="col-md-12 mt-3">
+                            <strong class="labels">Institution</strong>
+                            {!! Form::text('institute', null, ['placeholder' => 'Institution', 'class' => 'form-control']) !!}
+                        </div>
 
+                        <div class="col-md-12 mt-3">
+                            <strong class="labels">Location</strong>
+                            <div class="d-flex mb-4">
+                                {!! Form::text('address', null, ['placeholder' => 'Location', 'class' => 'form-control ']) !!}
+                                {{-- <button onclick="getLocation()" type="button" class="btn btn-sm btn-success ms-1"> Detect
+                                    Location
+                                </button> --}}
+                            </div>
+                            {{-- {!! Form::text('lat_lng', null, ['class' => 'lat_lng form-control w-75 d-none']) !!} --}}
+                            {{-- <div id="googleMap" style="width:100%;"></div> --}}
+                        </div>
+
+                        <div class="form-group">
+                            <strong>Blood Group:</strong>
+                            {!! Form::select(
+                                'blood_group',
+                                [
+                                    '' => 'Please select',
+                                    'a+' => 'A+ (A positive)',
+                                    'a-' => 'A- (A negative)',
+                                    'b+' => 'B- (B positive)',
+                                    'b-' => 'B- (B negative)',
+                            
+                                    'o+' => 'O- (O positive)',
+                                    'o-' => 'O- (O negative)',
+                                    'ab+' => 'AB- (AB positive)',
+                                    'ab-' => 'AB- (AB negative)',
+                                ],
+                                null,
+                                ['placeholder' => 'Blood group', 'class' => 'form-control'],
+                            ) !!}
+                        </div>
+
+                        <div class="row mt-3">
                             <div class="col-md-6">
                                 <div class="form-check form-switch">
                                     <input class="form-check-input" type="checkbox" id="avalable"
@@ -50,18 +82,6 @@
                                     {!! Form::text('available', null, ['class' => 'form-control w-75 d-none']) !!}
                                 </div>
                             </div>
-                        </div>
-
-                        <div class="col-md-12">
-                            <label class="labels">Area</label>
-                            <div class="d-flex mb-4">
-                                {!! Form::text('area', null, ['placeholder' => 'Area', 'class' => 'form-control w-75']) !!}
-                                <button onclick="getLocation()" type="button" class="btn btn-sm btn-success ms-1"> Detect
-                                    Location
-                                </button>
-                            </div>
-                            {!! Form::text('lat_lng', null, ['class' => 'lat_lng form-control w-75 d-none']) !!}
-                            <div id="googleMap" style="width:100%;"></div>
                         </div>
                         <div class="mt-5 text-center">
                             <button class="btn btn-primary profile-button" type="submit">

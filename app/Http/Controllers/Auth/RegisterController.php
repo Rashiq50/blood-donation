@@ -13,7 +13,7 @@ class RegisterController extends Controller
 {
     use RegistersUsers;
 
-    protected $redirectTo = RouteServiceProvider::HOME;
+    protected $redirectTo = '/';
 
     public function __construct()
     {
@@ -23,10 +23,12 @@ class RegisterController extends Controller
     protected function validator(array $data)
     {
         return Validator::make($data, [
-            'name' => ['required', 'string', 'max:255'],
-            'blood_group' => ['required', 'string', 'max:255'],
-            'phone' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'name' => 'required',
+            'email' => 'required|email|unique:users,email',
+            'contact' => 'required|string|unique:users,contact',
+            'blood_group' => 'required|string',
+            'address' => 'required|string',
+            'institute' => 'nullable|string',
             'password' => ['required', 'string', 'min:8', 'confirmed'],
         ]);
     }
@@ -38,17 +40,11 @@ class RegisterController extends Controller
         $user->name = $data['name'];
         $user->email = $data['email'];
         $user->blood_group = $data['blood_group'];
-        $user->phone = $data['phone'];
+        $user->contact = $data['contact'];
+        $user->address = $data['address'];
+        $user->institute = $data['institute'];
         $user->password = Hash::make($data['password']);
         $user->save();
         return $user;
-
-        return User::create([
-            'name' => $data['name'],
-            'email' => $data['email'],
-            'blood_group' => $data['blood_group'],
-            'phone' => $data['phone'],
-            'password' => Hash::make($data['password']),
-        ]);
     }
 }
