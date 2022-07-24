@@ -12,28 +12,28 @@ class PublicController extends Controller
 {
     public function index(Request $request)
     {
-        $search = request('search',' ');
-        $group = strtolower( request('group','none'));
-        $area = request('area','');
-
+        $search = request('search', ' ');
+        $group = strtolower(request('group', 'none'));
+        $area = request('area', '');
         $donors = User::where('available', 'available')
-        ->when(!empty($search), function ($query) use ($search) {
-            return $query->where(DB::raw('lower(name)'), 'like', '%' . strtolower($search) . '%');
-        }, function ($query) {
-            return $query;
-        })
-        ->when(!empty($group) && $group != 'none', function ($query) use ($group) {
-            return $query->where(DB::raw('lower(blood_group)'), '=', $group);
-        }, function ($query) {
-            return $query;
-        })
-        ->when(!empty($area), function ($query) use ($area) {
-            return $query->where(DB::raw('lower(address)'), 'like', '%' . strtolower($area) . '%');
-        }, function ($query) {
-            return $query;
-        })->paginate(10);
+            ->when(!empty($group) , function ($query) use ($group) {
+                return $query->where(DB::raw('lower(blood_group)'), '=', $group);
+            }, function ($query) {
+                return $query;
+            })
+            ->when(!empty($area), function ($query) use ($area) {
+                return $query->where(DB::raw('lower(address)'), 'like', '%' . strtolower($area) . '%');
+            }, function ($query) {
+                return $query;
+            })->paginate(10)->withQueryString();
+        // ->when(!empty($search), function ($query) use ($search) {
+        //     return $query->where(DB::raw('lower(name)'), 'like', '%' . strtolower($search) . '%');
+        // }, function ($query) {
+        //     return $query;
+        // })
 
-        return view('public.browse', compact('donors','search','group','area'));
+
+        return view('public.browse', compact('donors', 'search', 'group', 'area'));
     }
 
     public function test()

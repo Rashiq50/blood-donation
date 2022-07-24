@@ -6,10 +6,10 @@
         <div class="card-body">
             <form id="info">
                 <div class="d-flex">
-                    <input placeholder="Search" onchange="postForm()" value="{{ $search }}" name="search" id="search"
-                        type="text" class="form-control" />
+                    {{-- <input placeholder="Search" onchange="postForm()" value="{{ $search }}" name="search" id="search"
+                        type="text" class="form-control" /> --}}
 
-                    <input id="area" placeholder="Area" value="{{ $area }}" name="area" type="text"
+                    <input id="area" placeholder="Location" value="{{ $area }}" name="area" type="text"
                         class="form-control mx-2" />
 
                     <select name="group" onchange="postForm()" id="group"
@@ -25,7 +25,7 @@
                         <option {{strtolower($group) == 'ab-' ? 'selected' : '' }} value="ab-"> AB- (AB negative)</option>
                     </select>
 
-                    <button type="submit" class="btn btn-sm btn-success mx-2">Search</button>
+                    <button type="submit" class="btn btn-danger mx-2">Search</button>
                 </div>
             </form>
 
@@ -34,6 +34,12 @@
 
             </div>
             <div id="donors2">
+                @if(count($donors) == 0)
+                <div>
+                    <div class="text-muted text-center" style="font-weight: normal;font-size:1rem"> Select Location and blood group to search </div>
+                    <hr/>
+                </div>
+                @endif
                 @foreach ($donors as $donor)
                     <div class="border rounded p-4 my-2">
                         <h2>
