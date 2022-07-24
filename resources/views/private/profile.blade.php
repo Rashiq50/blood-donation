@@ -52,7 +52,7 @@
                             {{-- <div id="googleMap" style="width:100%;"></div> --}}
                         </div>
 
-                        <div class="form-group">
+                        <div class="form-group mb-3">
                             <strong>Blood Group:</strong>
                             {!! Form::select(
                                 'blood_group',
@@ -69,18 +69,41 @@
                                     'ab-' => 'AB- (AB negative)',
                                 ],
                                 null,
-                                ['placeholder' => 'Blood group', 'class' => 'form-control'],
+                                ['class' => 'form-control'],
                             ) !!}
                         </div>
 
-                        <div class="row mt-3">
-                            <div class="col-md-6">
-                                <div class="form-check form-switch">
-                                    <input class="form-check-input" type="checkbox" id="avalable"
-                                        {{ $user->available ? 'checked' : '' }}>
-                                    <label class="form-check-label" for="avalable"> Available to donation </label>
-                                    {!! Form::text('available', null, ['class' => 'form-control w-75 d-none']) !!}
-                                </div>
+                        <div class="form-group mb-3">
+                            <strong>Last Donated:</strong>
+                            @if ($user->last_donated)
+                                {{ date('d-M-Y', strtotime($user->last_donated)) }}
+                            @else
+                                Never
+                            @endif
+                            {!! Form::date('last_donated', '', ['placeholder' => 'dd/mm/yyyy', 'class' => 'form-control']) !!}
+                        </div>
+
+                        <div class="">
+                            <div class="">
+                                <strong class="form-check-label" for="available"> Available to donation </strong>
+                                {!! Form::select(
+                                    'available',
+                                    [
+                                        'available' => 'Available',
+                                        'not available' => 'Not Available',
+                                    ],
+                                    null,
+                                    [
+                                        'placeholder' => 'Please Select',
+                                        'class' => 'form-control',
+                                        'disabled' => $user->last_donated && Carbon\Carbon::parse($user->last_donated)->diffInMonths() <= 3,
+                                    ],
+                                ) !!}
+                                @if( $user->last_donated && Carbon\Carbon::parse($user->last_donated)->diffInMonths() <= 3)
+                                <span class="invalid-feedback d-block" role="alert">
+                                    <strong> You cannot donate before 3 months since you last donated </strong>
+                                </span>
+                                @endif
                             </div>
                         </div>
                         <div class="mt-5 text-center">

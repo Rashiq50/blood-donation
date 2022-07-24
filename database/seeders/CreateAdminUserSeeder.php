@@ -19,7 +19,7 @@ class CreateAdminUserSeeder extends Seeder
             'email' => 'admin@gmail.com',
             'blood_group' => "a+",
             'contact' => '012345678',
-            'available' => false,
+            'available' => 'not available',
             'password' => Hash::make('123456'),
         ]);
 

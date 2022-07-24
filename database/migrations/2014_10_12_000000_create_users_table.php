@@ -27,7 +27,7 @@ class CreateUsersTable extends Migration
 
             $table->string('lat_lng')->nullable();
 
-            $table->boolean('available')->default(true);
+            $table->string('available')->default('available');
             $table->timestamp('last_donated')->nullable();
             $table->integer('total_donation')->default(0);
             

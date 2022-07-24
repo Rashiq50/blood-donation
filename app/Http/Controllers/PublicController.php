@@ -16,7 +16,7 @@ class PublicController extends Controller
         $group = strtolower( request('group','none'));
         $area = request('area','');
 
-        $donors = User::where('available', 1)
+        $donors = User::where('available', 'available')
         ->when(!empty($search), function ($query) use ($search) {
             return $query->where(DB::raw('lower(name)'), 'like', '%' . strtolower($search) . '%');
         }, function ($query) {
@@ -54,7 +54,7 @@ class PublicController extends Controller
         $group = $request->group;
         $area = $request->area;
         $donors =
-            User::where('available', 1)
+            User::where('available', 'available')
             ->when(!empty($search), function ($query) use ($search) {
                 return $query->where(DB::raw('lower(name)'), 'like', '%' . strtolower($search) . '%');
             }, function ($query) {

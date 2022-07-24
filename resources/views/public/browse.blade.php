@@ -144,7 +144,6 @@
                 parent.appendChild(donor);
             }
         }
-        getDonors();
 
         function getDonors() {
             state.search = document.getElementById('search').value;

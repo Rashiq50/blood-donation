@@ -72,7 +72,7 @@
                                 <div class="col-md-6">
                                     <select id="blood_group" name="blood_group"
                                         class="form-control @error('blood_group') is-invalid @enderror" required>
-                                        <option> Please select </option>
+                                        <option value="null" > Please select </option>
                                         <option value="a+"> A+ (A positive) </option>
                                         <option value="a-"> A- (A negative)</option>
                                         <option value="b+"> B+ (B positive)</option>
