@@ -95,7 +95,7 @@
                             [
                             'placeholder' => 'Please Select',
                             'class' => 'form-control',
-                            'disabled' => $user->last_donated && Carbon\Carbon::parse($user->last_donated)->diffInMonths() <= 3, ], ) !!} @if( $user->last_donated && Carbon\Carbon::parse($user->last_donated)->diffInMonths() <= 3) <span class="invalid-feedback d-block" role="alert">
+                            'disabled' => $user->last_donated && Carbon\Carbon::parse($user->last_donated)->diffInDays() <= 90, ], ) !!} @if( $user->last_donated && Carbon\Carbon::parse($user->last_donated)->diffInMonths() <= 3) <span class="invalid-feedback d-block" role="alert">
                                     <strong> You cannot donate before 3 months since you last donated </strong>
                                     </span>
                                     @endif

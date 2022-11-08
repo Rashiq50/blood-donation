@@ -28,10 +28,12 @@ class HomeController extends Controller
     {
         $user = User::find(Auth::id());
         $user->update($request->all());
-        $start_date = new \Carbon\Carbon($request->last_donated);
-        if($start_date->diffInMonths() <= 3){
-            $user->available = "not available";
-            $user->save();
+        if($request->last_donated){
+            $start_date = new \Carbon\Carbon($request->last_donated);
+            if (now()->diffInDays($start_date) <= 90) {
+                $user->available = "not available";
+                $user->save();
+            }
         }
         return view('private.profile', compact('user'));
     }
