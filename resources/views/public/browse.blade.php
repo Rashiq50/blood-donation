@@ -57,7 +57,7 @@
                 </h5>
                 @if($donor->last_donated)
                 <h5>
-                    Last Donated: {{ now()->diffInMonths(Carbon\Carbon::parse($donor->last_donated)) }} months ago
+                    Last Donated: {{ date('d-M-Y', strtotime($donor->last_donated)) }}
                 </h5>
                 @else
                 <h5>
