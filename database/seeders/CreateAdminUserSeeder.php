@@ -36,6 +36,7 @@ class CreateAdminUserSeeder extends Seeder
         try{
             foreach($students as $student)
             {
+                $student['password'] = Hash::make('123456');
                 User::create($student);
             }
         }
